@@ -21,3 +21,5 @@ with rosbag.Bag('synchronized_data.bag', 'w') as outbag:
         else:
             msg.header.stamp = buffer
             outbag.write(topic, msg, msg.header.stamp)
+            
+print("Time synchronization done!")

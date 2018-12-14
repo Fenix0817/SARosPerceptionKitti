@@ -30,27 +30,34 @@ source devel/setup.bash
 pip install kitti2bag
 ```
 
-### Usage
+### Dataset aquisition
 
-1) Convert scenario `0060` (from the demo above) into a ROSbag file:  
-
-* Download and unzip the `synced+rectified data` file and its `calibration` file from the [KITTI Raw Dataset](http://www.cvlibs.net/datasets/kitti/raw_data.php)
-* Merge both files into one ROSbag file
+1) Download the `synced+rectified data` and its `calibration` files from a single scenario (e.g. `0060` from the demo above) of the [KITTI Raw Dataset](http://www.cvlibs.net/datasets/kitti/raw_data.php):  
 
 ```
-cd ~/kitti_data/
-kitti2bag -t 2011_09_26 -r 0060 raw_synced
+wget http://kitti.is.tue.mpg.de/kitti/raw_data/2011_09_26_drive_0002/2011_09_26_drive_0060_sync.zip
+wget http://kitti.is.tue.mpg.de/kitti/raw_data/2011_09_26_calib.zip
+
 ```
 
-2) Synchronize the sensor data:  
+2) Unzip the files and merge them into one ROSbag file:  
+
+```
+unzip 2011_09_26_drive_0060_sync.zip
+unzip 2011_09_26_calib.zip
+kitti2bag -t 2011_09_26 -r 0060 raw_synced . 
+```
+
+3) Synchronize the ROSbag file's sensor data:  
 
 * The script matches the timestamps of the Velodyne point cloud data with the Camara data to perform Sensor Fusion in a synchronized way within the ROS framework 
+
 ```
-cd ~/catkim_ws/src/ROS_Perception_Kitti_Dataset/pre_processing/
-python sync_rosbag.py raw_synced.bag
+cd ~/catkin_ws/src/SARosPerceptionKitti/pre_processing/
+python sync_rosbag.py kitti_2011_09_26_drive_0060_synced.bag
 ```
 
-3) Store preprocessed semantic segmentated images:  
+4) Generate preprocessed semantic segmentated images:  
 
 * The Camera data is preprocessed within a Deep Neural Network to create semantic segmentated images. With this step a "real-time" performance on any device (CPU usage) can be guaranteed
 
@@ -64,11 +71,12 @@ cd ~/kitti_data/0060/segmented_semantic_images/
 * For any other scenario follow this steps: Well pre-trained network with an IOU of 73% can be found here: [Finetuned Google's DeepLab on KITTI Dataset](https://github.com/hiwad-aziz/kitti_deeplab)
 
 4) Final folder structure  
+
 ```
     ~                                        # Home directory
     ├── catkin_ws                            # Catkin workspace
     │   ├── src                              # Clone repo in here
-    │       └── ROS_Perception_Kitti_Dataset # Repo
+    │       └── SARosPerceptionKitti         # Repo
     ├── kitti_data                           # Data folder
     │   ├── 0001                             # Scenario 0001
     │   ├── ...                              # Any other scenario
@@ -81,9 +89,13 @@ cd ~/kitti_data/0060/segmented_semantic_images/
     │   ├── ...
 ```
 
-Go into `sensor_processing/src/sensor_processing_lib/sensor_fusion.cpp` under method `processImage()` to hardcode your home directory!
+* IMPORTANT: Go into `sensor_processing/src/sensor_processing_lib/sensor_fusion.cpp` under method `processImage()` to hardcode your home directory!
 
-5) Run the ROS Package:  
+```
+    // HARDCODE HOME DIRECTORY HERE
+    path_name << "/YOUR_HOME_DIRECTORY/kitti_data/"
+```
+5) Run a ROS Package:  
 
 * Launch one of the following ROS nodes together with the scenario identifier and wait until RViz is fully loaded:  
 
@@ -104,7 +116,6 @@ rosbag play -r 0.25 synchronized_data.bag
 ### Troubleshooting
 
 * SEMANTIC IMAGES WARNING: Go to sensor.cpp line 543 in sensor_processing_lib and hardcode your personal home directory! ([see full discussion here](https://github.com/appinho/SARosPerceptionKitti/issues/10))
-
 * Make sure to close RVIz and restart the ROS launch command if you want to execute the scenario again. Otherwise it seems like the data isn't moving anymore ([see here](https://github.com/appinho/SARosPerceptionKitti/issues/7))
 * Make sure the scenario is encoded as 4 digit number, like above `0060`
 * Make sure the images are encoded as 10 digit numbers starting from `0000000000.png`
