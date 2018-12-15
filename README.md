@@ -54,6 +54,8 @@ So, without assigning any of the abovementioned parameters the scenario 0060 fro
 
 ### To Do
 
+* Check matching between occupancy grid and point cloud
+* Incremental dbscan for cars
 * Upload more scenarios
 * Make Youtube video to walk through repo
 * Make smaller gifs
