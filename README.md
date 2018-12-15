@@ -79,6 +79,15 @@ So, without assigning any of the abovementioned parameters the scenario 0060 fro
 
 If you have any questions, things you would love to add to my To Do list or ideas how to actualize the points in the Area of Improvements, send me an email simonappel62@gmail.com ! More than interested to collaborate and hear any kind of feedback. Happy hacking :)
 
+### Discussion
+
+Evaluation results for 7 Scenarios `0011,0013,0014,0018,0056,0059,0060`
+
+| Class        |  MOTP   |  MODP   |
+| ------------ |:-------:|:-------:|
+| Car          | 0.715273| 0.785403|
+| Pedestrian   | 0.581809| 0.988038|
+
 ### Troubleshooting
 
 * Make sure to close RVIz and restart the ROS launch command if you want to execute the scenario again. Otherwise it seems like the data isn't moving anymore ([see here](https://github.com/appinho/SARosPerceptionKitti/issues/7))
@@ -86,19 +95,6 @@ If you have any questions, things you would love to add to my To Do list or idea
 * Make sure the scenario is encoded as 4 digit number, like above `0060`
 * Make sure the images are encoded as 10 digit numbers starting from `0000000000.png`
 * Make sure the resulting semantic segmentated images have the color encoding of the [Cityscape Dataset](https://www.cityscapes-dataset.com/examples/)
-
-### Dependencies
-
-1) [Install ROS Kinetic on Ubuntu 16.04](http://wiki.ros.org/kinetic/Installation/Ubuntu)
-2) [Setup ROS Workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace):  
-```
-mkdir -p ~/catkin_ws/src  
-cd ~/catkin_ws/src  
-git pull https://github.com/appinho/SARosPerceptionKitti.git  
-cd ..  
-catkin_make  
-source devel/setup.bash  
-```
 
 ### DIY: Data generation
 
@@ -136,16 +132,18 @@ cd ~/kitti_data/0060/segmented_semantic_images/
 
 ```
 
-### Discussion
+### Dependencies
 
-Evaluation results for 7 Scenarios `0011,0013,0014,0018,0056,0059,0060`
-
-| Class        |  MOTP   |  MODP   |
-| ------------ |:-------:|:-------:|
-| Car          | 0.715273| 0.785403|
-| Pedestrian   | 0.581809| 0.988038|
-
-
+1) [Install ROS Kinetic on Ubuntu 16.04](http://wiki.ros.org/kinetic/Installation/Ubuntu)
+2) [Setup ROS Workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace):  
+```
+mkdir -p ~/catkin_ws/src  
+cd ~/catkin_ws/src  
+git pull https://github.com/appinho/SARosPerceptionKitti.git  
+cd ..  
+catkin_make  
+source devel/setup.bash  
+```
 
 <!--
 ## Evaluation for 7 Scenarios 0011,0013,0014,0018,0056,0059,0060
