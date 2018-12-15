@@ -6,11 +6,11 @@
  */
 
 #include <ros/ros.h>
-#include <sensor_processing_lib/sensor_fusion.h>
+#include <sensor_fusion_lib/sensor_fusion.h>
 
 int main(int argc, char **argv){
 	ros::init(argc, argv, "sensor_setup_node");
-	sensor_processing::SensorFusion sensor_setup(
+	sensor_fusion::SensorFusion sensor_setup(
 		ros::NodeHandle(), ros::NodeHandle("~"));
 	ros::spin();
 

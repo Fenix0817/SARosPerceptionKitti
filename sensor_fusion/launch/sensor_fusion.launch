@@ -1,0 +1,20 @@
+<launch>
+
+  <!-- Choose scenario -->
+  <arg name="scenario" />
+
+  <!-- Run the sensor setup node -->
+  <node pkg="sensor_fusion" type="sensor_setup" name="sensor_setup_node" output="screen">
+
+    <!-- Get parameters from parameter.yaml file -->
+    <rosparam file="$(find sensor_fusion)/config/parameters.yaml" command="load" />
+	  
+    <!-- Get scenario identifier -->
+    <param name="scenario" value="$(arg scenario)" />
+  </node>
+
+  <!-- Launch rviz for visualization -->
+  <node pkg="rviz" type="rviz" name="my_rviz"
+	args="-d $(find sensor_fusion)config/rviz_config_sensor.rviz"/>
+
+</launch>

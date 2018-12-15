@@ -5,9 +5,9 @@
  *
  */
 
-#include <sensor_processing_lib/sensor_fusion.h>
+#include <sensor_fusion_lib/sensor_fusion.h>
 
-namespace sensor_processing{
+namespace sensor_fusion{
 
 /******************************************************************************/
 
@@ -776,4 +776,4 @@ void SensorFusion::fromCartesianCellToVeloCoords(const int grid_x,
 		params_.grid_cell_size / 2;
 }
 
-} // namespace sensor_processing
+} // namespace sensor_fusion
