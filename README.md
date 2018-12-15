@@ -1,7 +1,7 @@
 SARosPerceptionKitti
 =================
  
-ROS package for the Perception (Sensor Fusion, Detection, Tracking and Evaluation) of the KITTI Vision Benchmark 
+ROS package for the Perception (Sensor Fusion, Detection, Tracking and Evaluation) of the KITTI Vision Benchmark Suite
 
 ### Demo
 <p align="center">
